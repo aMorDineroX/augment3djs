@@ -59,7 +59,7 @@ export default function SceneWrapper() {
         // Import the bootstrap function
         const { initializeScene } = await import('../lib/three-bootstrap')
         // Initialize the Three.js scene inside our container
-        const cleanup = initializeScene(containerRef.current)
+        const cleanup = initializeScene(containerRef.current!)
         setIsLoading(false)
         // Return cleanup function
         return cleanup
@@ -85,16 +85,19 @@ export default function SceneWrapper() {
     }
     
     let controlsTimeout: NodeJS.Timeout
-    containerRef.current.addEventListener('mousemove', handleMouseMove)
+
+    const container = containerRef.current
+    container?.addEventListener('mousemove', handleMouseMove)
     
     // Cleanup when component unmounts
     return () => {
       if (cleanupFunction) cleanupFunction()
-      containerRef.current?.removeEventListener('mousemove', handleMouseMove)
+
+      container?.removeEventListener('mousemove', handleMouseMove)
       clearTimeout(controlsTimeout)
     }
-  }, [])
-  
+
+  }, [])  
   return (
     <div 
       ref={containerRef} 

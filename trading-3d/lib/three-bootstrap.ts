@@ -302,7 +302,7 @@ export const initializeScene = (container: HTMLElement): (() => void) => {
   }
   
   // Helper functions for indicators with improved visuals
-  const addMovingAverage = (data) => {
+  const addMovingAverage = (data: CandleData[]) => {
     // Create curve for smoother line
     const points = data.map((candle, i) => 
       new THREE.Vector3(i * 0.5 - (data.length * 0.25), candle.close * 0.01 + 0.2, 0)
@@ -348,7 +348,7 @@ export const initializeScene = (container: HTMLElement): (() => void) => {
     chartGroup.add(particles)
   }
   
-  const addRSI = (data) => {
+  const addRSI = (data: CandleData[]) => {
     // Similar enhancement to RSI visualization
     const points = data.map((candle, i) => 
       new THREE.Vector3(i * 0.5 - (data.length * 0.25), candle.close * 0.008 - 0.3, 0)
@@ -367,7 +367,7 @@ export const initializeScene = (container: HTMLElement): (() => void) => {
     chartGroup.add(rsiLine)
   }
   
-  const addMACD = (data) => {
+  const addMACD = (data: CandleData[]) => {
     // Similar enhancement to MACD visualization
     const points = data.map((candle, i) => 
       new THREE.Vector3(i * 0.5 - (data.length * 0.25), candle.close * 0.006 - 0.5, 0)
